@@ -1,4 +1,4 @@
-module.exports = (sequelize, force = 'false') => {
+module.exports = (sequelize, force = false) => {
   sequelize
     .sync({ force })
     .then(() => console.log("Sequelize Start!"))
