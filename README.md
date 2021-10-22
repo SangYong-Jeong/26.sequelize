@@ -39,3 +39,15 @@ create user 'board4'@'%' identified by '000000';
 grant all privileges on board4.* to 'board4'@'%' with grant option;
 flush privileges;
 ```
+
+### Sequelize 관계설정
+- hasOne(), hasMany(), belongsTo(), belongsMany()
+- 1 : 1
+  - User.hasOne('UserInfo')
+  - UserInfo.belongsTo('User')
+- 1 : 다
+  - User.hasMany('Board')
+  - Board.belongsTo('User')
+- 다 : 다
+  - Category.hasMany('Product')
+  - Product.belongsMany('Category')
