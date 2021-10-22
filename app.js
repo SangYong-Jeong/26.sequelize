@@ -1,6 +1,9 @@
+/*************** dotenv init **************/
+require('./modules/dotenv-init')()
+
+
 /*************** global init **************/
-require('dotenv').config()
-const port = process.env.PORT
+// require('dotenv').config()
 const path = require('path')
 const express = require('express')
 const app = express()
@@ -12,7 +15,7 @@ require('./modules/server-init')(app, process.env.PORT)
 
 
 /*************** sequelize init **************/
-sequelize.sync({ force: true }) // 실제 DBMS랑 연동시켜줘
+require('./modules/sequelize-init')(sequelize) // 실제 DBMS랑 연동시켜줘
 
 
 /************** view engine ***************/
