@@ -28,7 +28,14 @@ module.exports = (sequelize, DataType) => {
   });
 
   Board.associate = (models) => {
-    Board.belongsTo(models.User, { foreignKey: 'user_id', sourceKey: 'id' })
+    Board.belongsTo(models.User, { 
+      foreignKey: {
+      name: 'user_id', 
+      allowNull: false
+    }, 
+      sourceKey: 'id', 
+      onDelete: 'CASCADE' 
+    })
   }
 
 
