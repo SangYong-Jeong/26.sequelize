@@ -4,7 +4,7 @@ const port = process.env.PORT
 const path = require('path')
 const express = require('express')
 const app = express()
-const { sequelize } = require('./models/index')
+const { sequelize } = require('./models')
 
 
 /*************** server init **************/
@@ -12,7 +12,7 @@ require('./modules/server-init')(app, process.env.PORT)
 
 
 /*************** sequelize init **************/
-sequelize.sync()
+sequelize.sync({ force: true }) // 실제 DBMS랑 연동시켜줘
 
 
 /************** view engine ***************/
