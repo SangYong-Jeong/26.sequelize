@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { User, sequelize, Sequelize } = require('../../models')
+const { User, Board, sequelize, Sequelize } = require('../../models')
 const createError = require('http-errors')
 const bcrypt = require('bcrypt')
 
@@ -89,14 +89,24 @@ router.get('/read', async (req, res, next) => {
           userid: 'moongtak2',
       }
     }) */
+    /* const result = await User.findAll({ 
+      order: [
+        ['username', 'desc']
+      ],
+    }) */
+    /* const result = await User.findAll({ 
+      order: [
+        ['username', 'desc']
+      ],
+      offset: 2,
+      limit: 2
+    }) */
     const result = await User.findAll({ 
-      where: {
-        username: {
-          // [Op.like]: '%탁%'
-          // [Op.substring]: '탈'
-          [Op.regexp]: '^[몽|밍]',
-        }
-      }
+      order: [
+        ['username', 'desc']
+      ],
+      offset: 2,
+      limit: 2
     })
     res.json(result)
   }
@@ -105,16 +115,26 @@ router.get('/read', async (req, res, next) => {
   }
 })
 
-router.get('/read/:id', async (req, res, next) => {
+router.get('/read2', async (req, res, next) => {
   try {
-    const { id } = req.params
-    // User.destroy({WHERE})
-    const result = await User.destroy({
-      where: { id }
+    const result = await User.findAll({
+      attributes: ["username", "email"],
+      where: {
+        id: 7
+      },
+      order: [
+        ['username', 'desc'],
+        ['id', 'asc']
+      ],
+      include: [
+        { model: Board, attributes: ["content", "writer"] },
+        // { model: UserInfo, attributes: ["content", "writer"] },
+      ],
+      // ORDER BY username DESC, id ASC
     })
     res.json(result)
   }
-  catch (err) {
+  catch(err) {
     next(createError(err))
   }
 })
