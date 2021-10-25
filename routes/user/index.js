@@ -118,13 +118,13 @@ router.get('/read', async (req, res, next) => {
 router.get('/read2', async (req, res, next) => {
   try {
     const result = await User.findAll({
-      attributes: ["username", "email"],
+      attributes: ["username", "email", "id"],
       where: {
-        id: 7
+        
       },
       order: [
-        ['username', 'desc'],
-        ['id', 'asc']
+        // ['username', 'desc'],
+        ['id', 'desc']
       ],
       include: [
         { model: Board, attributes: ["content", "writer"] },
